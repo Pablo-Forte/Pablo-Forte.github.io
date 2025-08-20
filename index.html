@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Tragedia de los Andes - 1972</title>
+    <style>
+        /* Reset y configuración base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        /* Variables de colores */
+        :root {
+            --primary-blue: #1e3a8a;
+            --secondary-blue: #3b82f6;
+            --light-gray: #f1f5f9;
+            --medium-gray: #64748b;
+            --dark-gray: #1e293b;
+            --white: #ffffff;
+            --accent-color: #0f172a;
+        }
+
+        /* Navegación */
+        nav {
+            background: rgba(30, 58, 138, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(30, 58, 138, 0.98);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--white);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #93c5fd;
+        }
+
+        /* Botón hamburguesa para móvil */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 3px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--white);
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
+                        url('galeria5.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            font-weight: 300;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            font-style: italic;
+        }
+
+        .hero .intro {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Secciones principales */
+        .section {
+            padding: 5rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section:nth-child(even) {
+            background-color: var(--white);
+        }
+
+        .container {
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary-blue);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 100px;
+            height: 3px;
+            background: var(--secondary-blue);
+            display: block;
+            margin: 1rem auto;
+        }
+
+        .section-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--dark-gray);
+            margin-bottom: 2rem;
+        }
+
+        .section-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Grid para secciones con imagen */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .content-image {
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .content-image:hover {
+            transform: translateY(-5px);
+        }
+
+        .content-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        /* Tarjetas de información */
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .info-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 4px solid var(--secondary-blue);
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .info-card h3 {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        /* Galería */
+        .gallery {
+            background: var(--white);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: var(--white);
+            padding: 1.5rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            margin-top: 3rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--secondary-blue);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .timeline-content {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            width: 45%;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: auto;
+        }
+
+        .timeline-date {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--secondary-blue);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--accent-color);
+            color: var(--white);
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #93c5fd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: var(--primary-blue);
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                padding-top: 2rem;
+                transition: left 0.3s ease;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links li {
+                margin: 1rem 0;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-content {
+                width: calc(100% - 60px);
+                margin-left: 60px !important;
+            }
+
+            .timeline-date {
+                left: 20px;
+                transform: none;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 3rem 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+        }
+
+        /* Estilos adicionales para mejorar la experiencia */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--secondary-blue);
+            color: var(--white);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-to-top:hover {
+            background: var(--primary-blue);
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navegación -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">Tragedia de los Andes</div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#inicio" onclick="scrollToSection('inicio')">Inicio</a></li>
+                <li><a href="#contexto" onclick="scrollToSection('contexto')">Contexto</a></li>
+                <li><a href="#accidente" onclick="scrollToSection('accidente')">El Accidente</a></li>
+                <li><a href="#rescate" onclick="scrollToSection('rescate')">El Rescate</a></li>
+                <li><a href="#legado" onclick="scrollToSection('legado')">Legado</a></li>
+                <li><a href="#galeria" onclick="scrollToSection('galeria')">Galería</a></li>
+            </ul>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <h1>La Tragedia de los Andes</h1>
+            <p class="subtitle">13 de octubre de 1972</p>
+            <p class="intro">
+                Una historia de supervivencia extraordinaria en las condiciones más extremas de la cordillera de los Andes. 
+                El relato de cómo 16 jóvenes uruguayos lograron sobrevivir 72 días en las montañas más inhóspitas del mundo, 
+                enfrentando temperaturas bajo cero, avalanchas y la falta de alimentos, en lo que se convirtió en uno de los 
+                episodios de supervivencia más impactantes de la historia moderna.
+            </p>
+        </div>
+    </section>
+
+    <!-- Contexto Histórico -->
+    <section id="contexto" class="section fade-in">
+        <div class="container">
+            <h2 class="section-title">Contexto Histórico</h2>
+            <div class="content-grid">
+                <div class="section-content">
+                    <p>
+                        El 12 de octubre de 1972, el vuelo 571 de la Fuerza Aérea Uruguaya despegó desde Montevideo con destino a Santiago de Chile. A bordo viajaban 45 personas, incluyendo al equipo de rugby "Old Christians Club" de Uruguay, familiares y amigos que se dirigían a disputar un partido amistoso.
+                    </p>
+                    <p>
+                        La aeronave, un Fairchild FH-227D, era piloteada por el coronel Julio César Ferradas, un experimentado aviador con más de 5.000 horas de vuelo. Las condiciones meteorológicas eran adversas, con nubes densas que cubrían la cordillera de los Andes.
+                    </p>
+                    <p>
+                        Debido al mal tiempo, el vuelo tuvo que hacer una escala técnica en Mendoza, Argentina, donde permanecieron durante la noche. Al día siguiente, 13 de octubre, reiniciaron el vuelo hacia Santiago, sin saber que se dirigían hacia uno de los accidentes aéreos más documentados de la historia.
+                    </p>
+                </div>
+                <div class="content-image">
+                    <img src="Supervivientes-fuera-del-fuselaje.jpg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- El Accidente y la Supervivencia -->
+    <section id="accidente" class="section fade-in">
+        <div class="container">
+            <h2 class="section-title">El Accidente y la Supervivencia</h2>
+            <div class="section-content">
+                <p>
+                    A las 15:21 horas del 13 de octubre de 1972, el vuelo 571 impactó contra una montaña sin nombre en la cordillera de los Andes, a una altitud de aproximadamente 3.570 metros sobre el nivel del mar. El error de navegación fue fatal: los pilotos creyeron haber cruzado completamente la cordillera cuando en realidad aún se encontraban en medio de ella.
+                </p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">13 Oct</div>
+                    <div class="timeline-content">
+                        <h3>El Impacto</h3>
+                        <p>El avión se estrella en la cordillera. De los 45 ocupantes, 12 mueren en el impacto inicial. Los 33 supervivientes se encuentran perdidos en un lugar remoto, sin equipos de supervivencia adecuados.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">17 Oct</div>
+                    <div class="timeline-content">
+                        <h3>La Primera Avalancha</h3>
+                        <p>Una devastadora avalancha entierra parcialmente el fuselaje durante la noche. Ocho supervivientes más pierden la vida, reduciendo el grupo a 25 personas.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">21 Oct</div>
+                    <div class="timeline-content">
+                        <h3>Suspensión de la Búsqueda</h3>
+                        <p>Las autoridades suspenden oficialmente la búsqueda. Los supervivientes escuchan por radio que han sido dados por muertos, comprendiendo que deben salvarse por sí mismos.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">29 Oct</div>
+                    <div class="timeline-content">
+                        <h3>La Decisión Más Difícil</h3>
+                        <p>Enfrentados a la muerte por inanición, los supervivientes toman la decisión más difícil de sus vidas: alimentarse de los cuerpos de sus compañeros fallecidos para sobrevivir.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-cards">
+                <div class="info-card">
+                    <h3>Condiciones Extremas</h3>
+                    <p>Temperaturas de hasta -30°C durante las noches, altitud de 3.570m que dificulta la respiración, y vientos huracanados que alcanzaban los 200 km/h.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Recursos Limitados</h3>
+                    <p>Sin equipos de supervivencia, alimentos suficientes para solo unos días, y sin comunicación con el exterior. Usaron metal del avión para derretir nieve.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Organización Grupal</h3>
+                    <p>Establecieron turnos para cuidar a los heridos, organizaron expediciones de reconocimiento y mantuvieron la moral del grupo a través del liderazgo colectivo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- El Rescate -->
+    <section id="rescate" class="section fade-in">
+        <div class="container">
+            <h2 class="section-title">El Rescate</h2>
+            <div class="content-grid">
+                <div class="content-image">
+                    <img src="rescate-en-los-andes-1104097.jpg">
+                </div>
+                <div class="section-content">
+                    <p>
+                        Después de 61 días de supervivencia, Fernando "Nando" Parrado y Roberto Canessa emprendieron una caminata épica de 10 días a través de la cordillera. Sin equipos de montañismo profesional, solo con ropa improvisada y determinación inquebrantable.
+                    </p>
+                    <p>
+                        El 20 de diciembre de 1972, Parrado y Canessa encontraron al arriero chileno Sergio Catalán del otro lado del río Azufre. Catalán les arrojó un papel con un lápiz, y Parrado escribió: "Vengo de un avión que cayó en las montañas. Soy uruguayo..."
+                    </p>
+                    <p>
+                        El 22 de diciembre, después de 72 días en la montaña, los helicópteros chilenos rescataron a los 14 supervivientes restantes. De los 45 ocupantes originales del vuelo, 16 lograron sobrevivir a una de las pruebas de supervivencia más extremas registradas en la historia.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Legado y Reflexión -->
+    <section id="legado" class="section fade-in">
+        <div class="container">
+            <h2 class="section-title">Legado y Reflexión</h2>
+            <div class="section-content">
+                <p>
+                    La tragedia de los Andes trasciende la narrativa de supervivencia para convertirse en una profunda reflexión sobre la condición humana, la solidaridad y los límites de la resistencia física y mental. Los supervivientes no solo lucharon contra los elementos, sino que enfrentaron dilemas morales y éticos que pusieron a prueba sus convicciones más profundas.
+                </p>
+                <p>
+                    Esta historia ha inspirado numerosos libros, documentales y películas, siendo "¡Viven!" (Alive) de 1993 la adaptación cinematográfica más conocida. El libro "Viven" de Piers Paul Read, escrito con la colaboración de los supervivientes, se convirtió en un bestseller internacional y sigue siendo la fuente más autorizada sobre estos eventos.
+                </p>
+            </div>
+
+            <div class="info-cards">
+                <div class="info-card">
+                    <h3>Impacto Cultural</h3>
+                    <p>La historia ha sido adaptada en múltiples idiomas y culturas, convirtiéndose en un símbolo universal de perseverancia humana y trabajo en equipo bajo las circunstancias más adversas.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Estudios Psicológicos</h3>
+                    <p>El caso ha sido estudiado extensivamente por psicólogos y sociólogos como ejemplo de liderazgo en crisis, toma de decisiones bajo presión extrema y resilencia grupal.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Mensaje de Vida</h3>
+                    <p>Los supervivientes han dedicado sus vidas a compartir un mensaje de esperanza, demostrando que la voluntad humana puede superar las circunstancias más desesperantes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galería -->
+    <section id="galeria" class="section gallery fade-in">
+        <div class="container">
+            <h2 class="section-title">Galería Histórica</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Cordillera de los Andes">
+                    <div class="gallery-overlay">
+                        <h4>La Cordillera de los Andes</h4>
+                        <p>El imponente paisaje donde ocurrió la tragedia</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="galeria1.jpg">
+                    <div class="gallery-overlay">
+                        <h4>Fairchild FH-227D</h4>
+                        <p>Modelo similar al avión del vuelo 571</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="galeria2.jpg">
+                    <div class="gallery-overlay">
+                        <h4>Condiciones Extremas</h4>
+                        <p>El harsh ambiente que enfrentaron los supervivientes</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="galeria3.jpg">
+                    <div class="gallery-overlay">
+                        <h4>El Sitio del Accidente</h4>
+                        <p>Ubicación aproximada del impacto en la cordillera</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="galeria4.jpg">
+                    <div class="gallery-overlay">
+                        <h4>Operación de Rescate</h4>
+                        <p>Helicópteros similares a los utilizados en el rescate</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="galeria6.jpg">
+                    <div class="gallery-overlay">
+                        <h4>Legado Permanente</h4>
+                        <p>Un recordatorio eterno de la fortaleza humana</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#inicio">Inicio</a>
+                <a href="#contexto">Contexto Histórico</a>
+                <a href="#accidente">El Accidente</a>
+                <a href="#rescate">El Rescate</a>
+                <a href="#legado">Legado</a>
+                <a href="#galeria">Galería</a>
+            </div>
+            <p>&copy; 2024 La Tragedia de los Andes - Sitio Informativo. Creado con respeto y memoria hacia los protagonistas de esta historia.</p>
+            <p style="margin-top: 1rem; opacity: 0.8;">
+                <strong>Recursos adicionales:</strong> 
+                <a href="#" style="color: #93c5fd;">Libro "Viven" de Piers Paul Read</a> | 
+                <a href="#" style="color: #93c5fd;">Película "Alive" (1993)</a> | 
+                <a href="#" style="color: #93c5fd;">Documental "Stranded" (2007)</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Botón scroll to top -->
+    <button class="scroll-to-top" id="scrollToTop" onclick="scrollToTop()">↑</button>
+
+    <script>
+        // Navegación suave
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            const navHeight = document.getElementById('navbar').offsetHeight;
+            const elementPosition = element.offsetTop;
+            const offsetPosition = elementPosition - navHeight;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+
+            // Cerrar menú móvil si está abierto
+            const navLinks = document.getElementById('nav-links');
+            navLinks.classList.remove('active');
+        }
+
+        // Toggle menú hamburguesa
+        function toggleMenu() {
+            const navLinks = document.getElementById('nav-links');
+            navLinks.classList.toggle('active');
+        }
+
+        // Scroll to top
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Efectos de scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            const scrollToTopBtn = document.getElementById('scrollToTop');
+            
+            // Cambiar apariencia de navbar al hacer scroll
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                navbar.classList.remove('scrolled');
+                scrollToTopBtn.classList.remove('visible');
+            }
+
+            // Animación fade-in para elementos
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        });
+
+        // Cerrar menú móvil al hacer click fuera
+        document.addEventListener('click', (e) => {
+            const navLinks = document.getElementById('nav-links');
+            const hamburger = document.querySelector('.hamburger');
+            
+            if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // Animación inicial de elementos visibles
+        document.addEventListener('DOMContentLoaded', () => {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            fadeElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+
+        // Smooth scrolling para todos los enlaces internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                if (targetId) {
+                    scrollToSection(targetId);
+                }
+            });
+        });
+
+        // Preloader opcional (se puede activar)
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
+        });
+
+        // Efecto parallax sutil en hero
+        window.addEventListener('scroll', () => {
+            const hero = document.querySelector('.hero');
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.5;
+            
+            if (hero) {
+                hero.style.transform = `translateY(${rate}px)`;
+            }
+        });
+
+        // Contador animado (si se desea agregar estadísticas)
+        function animateCounter(element, target, duration = 2000) {
+            let start = 0;
+            const increment = target / (duration / 16);
+            
+            const timer = setInterval(() => {
+                start += increment;
+                element.textContent = Math.floor(start);
+                
+                if (start >= target) {
+                    element.textContent = target;
+                    clearInterval(timer);
+                }
+            }, 16);
+        }
+
+        // Función para lazy loading de imágenes (opcional)
+        function lazyLoadImages() {
+            const images = document.querySelectorAll('img[data-src]');
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.remove('lazy');
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+
+            images.forEach(img => imageObserver.observe(img));
+        }
+
+        // Inicializar lazy loading si hay imágenes con data-src
+        document.addEventListener('DOMContentLoaded', lazyLoadImages);
+
+        // Función para mostrar/ocultar elementos según el scroll
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.reveal');
+            
+            reveals.forEach(element => {
+                const windowHeight = window.innerHeight;
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add('active');
+                } else {
+                    element.classList.remove('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', revealOnScroll);
+
+        // Función para manejar el redimensionado de ventana
+        window.addEventListener('resize', () => {
+            // Cerrar menú móvil en redimensionado
+            const navLinks = document.getElementById('nav-links');
+            if (window.innerWidth > 768) {
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // Función de debugging para desarrollo (se puede eliminar en producción)
+        function debugInfo() {
+            console.log('Tragedia de los Andes - Website loaded successfully');
+            console.log('Viewport:', window.innerWidth + 'x' + window.innerHeight);
+        }
+
+        // Llamar debug info en desarrollo
+        document.addEventListener('DOMContentLoaded', debugInfo);
+
+        // Prevenir comportamiento por defecto en enlaces vacíos
+        document.querySelectorAll('a[href="#"]').forEach(link => {
+            link.addEventListener('click', e => e.preventDefault());
+        });
+
+    </script>
+</body>
+</html>
